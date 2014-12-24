@@ -2,18 +2,23 @@ package model.piece;
 
 import model.plateform.Square;
 
-public class King extends Piece implements Move {
+public class King extends Piece {
 	public King() {
 		super();
 	}
 
+	@Override
 	public void move(Square destination) {
-		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	public void eat(Square destination) {
+
+	}
+
+	@Override
 	public boolean validMove(Square destination) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

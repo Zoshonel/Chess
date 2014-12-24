@@ -3,30 +3,31 @@ package model.plateform;
 import model.piece.Piece;
 
 public class Square {
-	private final int row;
-	private final int column;
+	private final int rowNumber;
+	private final int columnNumber;
 	private final String color;
 	private boolean occupied;
+	private boolean underCheck;
 	private Piece piece;
 
-	public Square(int row, int column, String color) {
-		this.row = row;
-		this.column = column;
+	public Square(int rowNumber, int columnNumber, String color) {
+		this.rowNumber = rowNumber;
+		this.columnNumber = columnNumber;
 		this.color = color;
 	}
 
 	/**
 	 * @return the row
 	 */
-	public int getRow() {
-		return this.row;
+	public int getRowNumber() {
+		return this.rowNumber;
 	}
 
 	/**
 	 * @return the column
 	 */
-	public int getColumn() {
-		return this.column;
+	public int getColumnNumber() {
+		return this.columnNumber;
 	}
 
 	/**
@@ -44,9 +45,26 @@ public class Square {
 	}
 
 	/**
+	 * @return the underCheck
+	 */
+	public boolean isUnderCheck() {
+		return this.underCheck;
+	}
+
+	/**
 	 * @return the piece
 	 */
 	public Piece getPiece() {
 		return this.piece;
+	}
+
+	public void empty() {
+		this.occupied = false;
+		this.piece = null;
+	}
+
+	public void takenBy(Piece piece) {
+		this.occupied = true;
+		this.piece = piece;
 	}
 }
