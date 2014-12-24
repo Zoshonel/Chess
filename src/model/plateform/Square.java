@@ -8,12 +8,13 @@ public class Square {
 	private final String color;
 	private boolean occupied;
 	private boolean underCheck;
-	private Piece piece;
+	private final Piece[] piece;
 
 	public Square(int rowNumber, int columnNumber, String color) {
 		this.rowNumber = rowNumber;
 		this.columnNumber = columnNumber;
 		this.color = color;
+		this.piece = new Piece[1];
 	}
 
 	/**
@@ -55,16 +56,16 @@ public class Square {
 	 * @return the piece
 	 */
 	public Piece getPiece() {
-		return this.piece;
+		return this.piece[0];
 	}
 
 	public void empty() {
 		this.occupied = false;
-		this.piece = null;
+		this.piece[0] = null;
 	}
 
 	public void takenBy(Piece piece) {
 		this.occupied = true;
-		this.piece = piece;
+		this.piece[0] = piece;
 	}
 }

@@ -27,4 +27,22 @@ public class Table {
 	public List<Square> getListSquare() {
 		return this.listSquare;
 	}
+
+	/**
+	 * @param row
+	 * @param column
+	 * @return return the square that match row, column
+	 */
+	public Square getSquare(int row, int column) {
+		if (row < 0 || row > 8 || column < 0 || column > 8) {
+			return null;
+		} else {
+			for (Square square : this.listSquare) {
+				if ((square.getColumnNumber() == column) && (square.getRowNumber() == row)) {
+					return square;
+				}
+			}
+			return null;
+		}
+	}
 }
