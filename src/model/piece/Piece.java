@@ -27,24 +27,24 @@ public class Piece {
 	}
 
 	public boolean move(Square destination, Table table) {
-		if (this.position.equals(destination)) {
+		if (this.position.equals(destination)) { // Can't move to the same square
 			return false;
 		}
-		if (validMove(destination, table)) {
-			this.position.empty();
-			takeSquare(destination);
+		if (validMove(destination, table)) { // If the move is valid
+			this.position.empty(); // Leave the current square...
+			takeSquare(destination); // ... to take another square
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	protected boolean validMove(Square destination, Table table) {
+	protected boolean validMove(Square destination, Table table) { // Will be modify in sub-class
 		return true;
 	}
 
 	protected void takeSquare(Square destination) {
-		this.position = destination;
-		destination.takenBy(this);
+		this.position = destination; // Change the current position to the destination
+		destination.takenBy(this); // Alarm the square that it is taken by this piece
 	}
 }
