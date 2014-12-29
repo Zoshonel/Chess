@@ -3,15 +3,13 @@ package model.piece;
 import model.plateform.Square;
 import model.plateform.Table;
 
-public abstract class Piece {
+public class Piece {
 	protected String color;
 	protected Square position;
-	protected Table table;
 
-	public Piece(String color, Square position, Table table) {
+	public Piece(String color, Square position) {
 		this.color = color;
 		this.position = position;
-		this.table = table;
 	}
 
 	/**
@@ -28,10 +26,25 @@ public abstract class Piece {
 		return this.position;
 	}
 
-	/**
-	 * @return the table
-	 */
-	public Table getTable() {
-		return this.table;
+	public boolean move(Square destination, Table table) {
+		if (this.position.equals(destination)) {
+			return false;
+		}
+		if (validMove(destination, table)) {
+			this.position.empty();
+			takeSquare(destination);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected boolean validMove(Square destination, Table table) {
+		return true;
+	}
+
+	protected void takeSquare(Square destination) {
+		this.position = destination;
+		destination.takenBy(this);
 	}
 }

@@ -3,20 +3,21 @@ package model.piece;
 import model.plateform.Square;
 import model.plateform.Table;
 
-public class Knight extends Piece implements Action {
-	public Knight(String color, Square position, Table table) {
-		super(color, position, table);
+public class Knight extends Piece {
+	public Knight(String color, Square position) {
+		super(color, position);
 	}
 
-	public boolean move(Square destination) {
+	@Override
+	protected boolean validMove(Square destination, Table table) {
+		int deltaColumn = destination.getColumnNumber() - this.position.getColumnNumber();
+		int deltaRow = destination.getRowNumber() - this.position.getRowNumber();
+		int x = deltaColumn * deltaColumn + deltaRow * deltaRow;
+		if (x != 5) {
+			return false;
+		} else if (destination.getPiece().getColor().equalsIgnoreCase(this.color)) { // Knight can't capture piece with same color as itself
+			return false;
+		}
 		return true;
-	}
-
-	public void capture(Square destination) {
-
-	}
-
-	public boolean validMove(Square destination) {
-		return false;
 	}
 }

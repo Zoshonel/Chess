@@ -45,4 +45,24 @@ public class Table {
 			return null;
 		}
 	}
+
+	public List<Square> getRow(int rowNumber) {
+		List<Square> row = new ArrayList<Square>();
+		for (Square square : this.listSquare) {
+			if (square.getRowNumber() == rowNumber) {
+				row.add(square);
+			}
+		}
+		return row;
+	}
+
+	public List<Square> getColumn(int columnNumber) {
+		List<Square> column = new ArrayList<Square>();
+		for (Square square : this.listSquare) {
+			if (square.getColumnNumber() == columnNumber) {
+				column.add(square);
+			}
+		}
+		return column;
+	}
 }

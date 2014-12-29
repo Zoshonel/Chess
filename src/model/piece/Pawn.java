@@ -3,15 +3,19 @@ package model.piece;
 import model.plateform.Square;
 import model.plateform.Table;
 
-public class Pawn extends Piece implements Action {
+public class Pawn extends Piece {
 	boolean firstMove = true;
 
-	public Pawn(String color, Square position, Table table) {
-		super(color, position, table);
+	public Pawn(String color, Square position) {
+		super(color, position);
 	}
 
-	public boolean move(Square destination) {
-		if (validMove(destination)) {
+	@Override
+	public boolean move(Square destination, Table table) {
+		if (this.getPosition().equals(destination)) {
+			return false;
+		}
+		if (validMove(destination, table)) {
 			this.firstMove = false;
 			this.position.empty();
 			takeSquare(destination);
@@ -21,7 +25,8 @@ public class Pawn extends Piece implements Action {
 		}
 	}
 
-	public boolean validMove(Square destination) {
+	@Override
+	protected boolean validMove(Square destination, Table table) {
 		if (this.color == "white") {
 			if (destination.getRowNumber() < this.position.getRowNumber()) { // Move backward is forbidden
 				return false;
@@ -37,7 +42,7 @@ public class Pawn extends Piece implements Action {
 					if (destination.isOccupied()) { // And the destination must not be occupied
 						return false;
 					}
-					if (this.table.getSquare(this.position.getRowNumber() + 1, this.position.getColumnNumber()).isOccupied()) { // Or if the square ahead is occupied, pawn can't move.
+					if (table.getSquare(this.position.getRowNumber() + 1, this.position.getColumnNumber()).isOccupied()) { // Or if the square ahead is occupied, pawn can't move.
 						return false;
 					}
 				}
@@ -97,7 +102,7 @@ public class Pawn extends Piece implements Action {
 					if (destination.isOccupied()) { // And the destination must not be occupied
 						return false;
 					}
-					if (this.table.getSquare(this.position.getRowNumber() - 1, this.position.getColumnNumber()).isOccupied()) { // Or if the square ahead is occupied, pawn can't move.
+					if (table.getSquare(this.position.getRowNumber() - 1, this.position.getColumnNumber()).isOccupied()) { // Or if the square ahead is occupied, pawn can't move.
 						return false;
 					}
 				}
@@ -144,10 +149,5 @@ public class Pawn extends Piece implements Action {
 			}
 		}
 		return true;
-	}
-
-	private void takeSquare(Square destination) {
-		this.position = destination;
-		destination.takenBy(this);
 	}
 }

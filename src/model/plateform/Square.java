@@ -59,6 +59,50 @@ public class Square {
 		return this.piece[0];
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.color == null) ? 0 : this.color.hashCode());
+		result = prime * result + this.columnNumber;
+		result = prime * result + this.rowNumber;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Square other = (Square) obj;
+		if (this.color == null) {
+			if (other.color != null) {
+				return false;
+			}
+		} else if (!this.color.equals(other.color)) {
+			return false;
+		}
+		if (this.columnNumber != other.columnNumber) {
+			return false;
+		}
+		if (this.rowNumber != other.rowNumber) {
+			return false;
+		}
+		return true;
+	}
+
 	public void empty() {
 		this.occupied = false;
 		this.piece[0] = null;
