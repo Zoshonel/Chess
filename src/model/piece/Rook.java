@@ -1,6 +1,6 @@
 package model.piece;
 
-import model.piece.moveInterface.RookMove;
+import model.piece.move.RookMove;
 import model.plateform.Square;
 import model.plateform.Team;
 

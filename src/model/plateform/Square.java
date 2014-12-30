@@ -1,5 +1,7 @@
 package model.plateform;
 
+import java.util.Set;
+
 import model.piece.Piece;
 
 public class Square {
@@ -7,7 +9,7 @@ public class Square {
 	private final int columnNumber;
 	private final String color;
 	private boolean occupied;
-	private boolean underCheck;
+	private Set<Team> checkedBy;
 	private final Piece[] piece;
 
 	public Square(int rowNumber, int columnNumber, String color) {
@@ -46,10 +48,17 @@ public class Square {
 	}
 
 	/**
-	 * @return the underCheck
+	 * @param occupied the occupied to set
 	 */
-	public boolean isUnderCheck() {
-		return this.underCheck;
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+
+	/**
+	 * @return the checkedBy
+	 */
+	public Set<Team> getCheckedBy() {
+		return this.checkedBy;
 	}
 
 	/**
@@ -104,12 +113,12 @@ public class Square {
 	}
 
 	public void empty() {
-		this.occupied = false;
+		setOccupied(false);
 		this.piece[0] = null;
 	}
 
 	public void takenBy(Piece piece) {
-		this.occupied = true;
+		setOccupied(true);
 		this.piece[0] = piece;
 	}
 }

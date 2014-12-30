@@ -1,6 +1,6 @@
 package model.piece;
 
-import model.piece.moveInterface.PawnMove;
+import model.piece.move.PawnMove;
 import model.plateform.Square;
 import model.plateform.Team;
 

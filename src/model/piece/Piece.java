@@ -1,6 +1,7 @@
 package model.piece;
 
-import model.piece.moveInterface.IMove;
+import model.piece.check.ICheck;
+import model.piece.move.IMove;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -9,6 +10,7 @@ public class Piece {
 	protected final Team team;
 	protected Square position;
 	protected IMove iMove;
+	protected ICheck iCheck;
 
 	public Piece(Team team, Square position) {
 		this.team = team;
@@ -38,5 +40,9 @@ public class Piece {
 
 	public boolean move(Square destination, Table table) {
 		return this.iMove.move(destination, table);
+	}
+
+	public void check(Square position, Table table) {
+		this.iCheck.check(position, table);
 	}
 }

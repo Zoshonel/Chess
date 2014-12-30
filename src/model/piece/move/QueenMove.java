@@ -1,4 +1,4 @@
-package model.piece.moveInterface;
+package model.piece.move;
 
 import model.piece.Queen;
 import model.plateform.Square;

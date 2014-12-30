@@ -1,6 +1,6 @@
 package model.piece;
 
-import model.piece.moveInterface.BishopMove;
+import model.piece.move.BishopMove;
 import model.plateform.Square;
 import model.plateform.Team;
 
