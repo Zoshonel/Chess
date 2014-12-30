@@ -5,7 +5,7 @@ import model.plateform.Square;
 import model.plateform.Team;
 
 public class Pawn extends Piece {
-	boolean firstMove;
+	private boolean firstMove;
 
 	public Pawn(Team team, Square position) {
 		super(team, position);

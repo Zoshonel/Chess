@@ -3,6 +3,7 @@ package model.piece.moveInterface;
 import model.piece.Pawn;
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class PawnMove implements IMove {
 	private final Pawn pawn;
@@ -17,7 +18,7 @@ public class PawnMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table)) {
+		if (validMove(position, destination, table, this.pawn.getTeam())) {
 			this.pawn.setFirstMove(false);
 			position.empty();
 			takeSquare(destination);
@@ -27,8 +28,8 @@ public class PawnMove implements IMove {
 		}
 	}
 
-	private boolean validMove(Square position, Square destination, Table table) {
-		if (this.pawn.getTeam().getColor() == "white") {
+	private boolean validMove(Square position, Square destination, Table table, Team team) {
+		if (team.getColor() == "white") {
 			if (destination.getRowNumber() < position.getRowNumber()) { // Move backward is forbidden
 				return false;
 			}
@@ -59,7 +60,7 @@ public class PawnMove implements IMove {
 					if (!destination.isOccupied()) {
 						return false;
 					} else {
-						if (destination.getPiece().getTeam() == this.pawn.getTeam()) {
+						if (destination.getPiece().getTeam().equals(team)) {
 							return false;
 						} else {
 							return true;
@@ -81,7 +82,7 @@ public class PawnMove implements IMove {
 				if (!destination.isOccupied()) {
 					return false;
 				} else {
-					if (destination.getPiece().getTeam() == this.pawn.getTeam()) {
+					if (destination.getPiece().getTeam().equals(team)) {
 						return false;
 					} else {
 						return true;
@@ -119,7 +120,7 @@ public class PawnMove implements IMove {
 					if (!destination.isOccupied()) {
 						return false;
 					} else {
-						if (destination.getPiece().getTeam() == this.pawn.getTeam()) {
+						if (destination.getPiece().getTeam().equals(team)) {
 							return false;
 						} else {
 							return true;
@@ -141,7 +142,7 @@ public class PawnMove implements IMove {
 				if (!destination.isOccupied()) {
 					return false;
 				} else {
-					if (destination.getPiece().getTeam() == this.pawn.getTeam()) {
+					if (destination.getPiece().getTeam().equals(team)) {
 						return false;
 					} else {
 						return true;

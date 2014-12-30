@@ -3,6 +3,7 @@ package model.piece.moveInterface;
 import model.piece.Rook;
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class RookMove implements IMove {
 	private final Rook rook;
@@ -17,7 +18,7 @@ public class RookMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table)) {
+		if (validMove(position, destination, table, this.rook.getTeam())) {
 			this.rook.setFirstMove(false);
 			position.empty();
 			takeSquare(destination);
@@ -27,18 +28,18 @@ public class RookMove implements IMove {
 		}
 	}
 
-	private boolean validMove(Square position, Square destination, Table table) {
+	public static boolean validMove(Square position, Square destination, Table table, Team team) {
 		if ((destination.getColumnNumber() != position.getColumnNumber()) && (destination.getRowNumber() != position.getRowNumber())) { // Move to another row and column is forbidden for rook
 			return false;
 		} else if (pathBlocked(position, destination, table)) { // Verify if there have no occupied square in his path
 			return false;
-		} else if (destination.getPiece().getTeam().equals(this.rook.getTeam())) { // Rook can't capture piece with same color as itself
+		} else if (destination.getPiece().getTeam().equals(team)) { // Rook can't capture piece with same color as itself
 			return false;
 		}
 		return true;
 	}
 
-	private boolean pathBlocked(Square position, Square destination, Table table) {
+	private static boolean pathBlocked(Square position, Square destination, Table table) {
 		if (destination.getRowNumber() == position.getRowNumber()) { // Rook move horizontally
 			int rowNumber = position.getRowNumber();
 			if (position.getColumnNumber() > destination.getColumnNumber()) { // Move right to left

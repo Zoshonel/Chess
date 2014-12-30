@@ -3,6 +3,7 @@ package model.piece.moveInterface;
 import model.piece.Queen;
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class QueenMove implements IMove {
 	private final Queen queen;
@@ -17,7 +18,7 @@ public class QueenMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table)) {
+		if (validMove(position, destination, table, this.queen.getTeam())) {
 			position.empty();
 			takeSquare(destination);
 			return true;
@@ -26,9 +27,14 @@ public class QueenMove implements IMove {
 		}
 	}
 
-	private boolean validMove(Square position, Square destination, Table table) {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean validMove(Square position, Square destination, Table table, Team team) {
+		if (RookMove.validMove(position, destination, table, team)) {
+			return true;
+		} else if (BishopMove.validMove(position, destination, table, team)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void takeSquare(Square destination) {

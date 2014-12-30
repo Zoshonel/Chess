@@ -3,6 +3,7 @@ package model.piece.moveInterface;
 import model.piece.Knight;
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class KnightMove implements IMove {
 	private final Knight knight;
@@ -17,7 +18,7 @@ public class KnightMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table)) {
+		if (validMove(position, destination, table, this.knight.getTeam())) {
 			position.empty();
 			takeSquare(destination);
 			return true;
@@ -26,13 +27,13 @@ public class KnightMove implements IMove {
 		}
 	}
 
-	protected boolean validMove(Square position, Square destination, Table table) {
+	protected boolean validMove(Square position, Square destination, Table table, Team team) {
 		int deltaColumn = destination.getColumnNumber() - position.getColumnNumber();
 		int deltaRow = destination.getRowNumber() - position.getRowNumber();
 		int x = deltaColumn * deltaColumn + deltaRow * deltaRow;
 		if (x != 5) {
 			return false;
-		} else if (destination.getPiece().getTeam().equals(this.knight.getTeam())) { // Knight can't capture piece with same color as itself
+		} else if (destination.getPiece().getTeam().equals(team)) { // Knight can't capture piece with same color as itself
 			return false;
 		}
 		return true;

@@ -3,6 +3,7 @@ package model.piece.moveInterface;
 import model.piece.King;
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class KingMove implements IMove {
 	private final King king;
@@ -17,7 +18,7 @@ public class KingMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table)) {
+		if (validMove(position, destination, table, this.king.getTeam())) {
 			this.king.setFirstMove(false);
 			position.empty();
 			takeSquare(destination);
@@ -27,14 +28,14 @@ public class KingMove implements IMove {
 		}
 	}
 
-	public boolean validMove(Square position, Square destination, Table table) {
+	public boolean validMove(Square position, Square destination, Table table, Team team) {
 		if (destination.getColumnNumber() - position.getColumnNumber() > 1) { // King can't move further than 1 square
 			return false;
 		} else if (destination.getRowNumber() - position.getRowNumber() > 1) {
 			return false;
 		} else if (destination.isUnderCheck()) { // Or move to a checked square
 			return false;
-		} else if (destination.getPiece().getTeam().equals(this.king.getTeam())) { // Or capture his own piece
+		} else if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
 			return false;
 		}
 		return false;
