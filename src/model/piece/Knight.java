@@ -2,10 +2,11 @@ package model.piece;
 
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class Knight extends Piece {
-	public Knight(String color, Square position) {
-		super(color, position);
+	public Knight(Team team, Square position) {
+		super(team, position);
 	}
 
 	@Override
@@ -15,7 +16,7 @@ public class Knight extends Piece {
 		int x = deltaColumn * deltaColumn + deltaRow * deltaRow;
 		if (x != 5) {
 			return false;
-		} else if (destination.getPiece().getColor().equalsIgnoreCase(this.color)) { // Knight can't capture piece with same color as itself
+		} else if (destination.getPiece().getTeam().equals(this.team)) { // Knight can't capture piece with same color as itself
 			return false;
 		}
 		return true;

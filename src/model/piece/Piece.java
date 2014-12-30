@@ -2,21 +2,22 @@ package model.piece;
 
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class Piece {
-	protected String color;
+	protected Team team;
 	protected Square position;
 
-	public Piece(String color, Square position) {
-		this.color = color;
+	public Piece(Team team, Square position) {
+		this.team = team;
 		this.position = position;
 	}
 
 	/**
 	 * @return the color
 	 */
-	public String getColor() {
-		return this.color;
+	public Team getTeam() {
+		return this.team;
 	}
 
 	/**

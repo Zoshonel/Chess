@@ -2,12 +2,13 @@ package model.piece;
 
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class Pawn extends Piece {
 	boolean firstMove = true;
 
-	public Pawn(String color, Square position) {
-		super(color, position);
+	public Pawn(Team team, Square position) {
+		super(team, position);
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class Pawn extends Piece {
 
 	@Override
 	protected boolean validMove(Square destination, Table table) {
-		if (this.color == "white") {
+		if (this.team.getColor() == "white") {
 			if (destination.getRowNumber() < this.position.getRowNumber()) { // Move backward is forbidden
 				return false;
 			}
@@ -58,7 +59,7 @@ public class Pawn extends Piece {
 					if (!destination.isOccupied()) {
 						return false;
 					} else {
-						if (destination.getPiece().getColor() == this.color) {
+						if (destination.getPiece().getTeam() == this.team) {
 							return false;
 						} else {
 							return true;
@@ -80,7 +81,7 @@ public class Pawn extends Piece {
 				if (!destination.isOccupied()) {
 					return false;
 				} else {
-					if (destination.getPiece().getColor() == this.color) {
+					if (destination.getPiece().getTeam() == this.team) {
 						return false;
 					} else {
 						return true;
@@ -118,7 +119,7 @@ public class Pawn extends Piece {
 					if (!destination.isOccupied()) {
 						return false;
 					} else {
-						if (destination.getPiece().getColor() == this.color) {
+						if (destination.getPiece().getTeam() == this.team) {
 							return false;
 						} else {
 							return true;
@@ -140,7 +141,7 @@ public class Pawn extends Piece {
 				if (!destination.isOccupied()) {
 					return false;
 				} else {
-					if (destination.getPiece().getColor() == this.color) {
+					if (destination.getPiece().getTeam() == this.team) {
 						return false;
 					} else {
 						return true;

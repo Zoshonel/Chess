@@ -2,10 +2,11 @@ package model.piece;
 
 import model.plateform.Square;
 import model.plateform.Table;
+import model.plateform.Team;
 
 public class Queen extends Piece {
-	public Queen(String color, Square position) {
-		super(color, position);
+	public Queen(Team team, Square position) {
+		super(team, position);
 	}
 
 	@Override
