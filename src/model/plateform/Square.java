@@ -9,7 +9,7 @@ public class Square {
 	private final int columnNumber;
 	private final String color;
 	private boolean occupied;
-	private Set<Team> checkedBy;
+	private Set<Piece> checkedBy;
 	private final Piece[] piece;
 
 	public Square(int rowNumber, int columnNumber, String color) {
@@ -57,7 +57,7 @@ public class Square {
 	/**
 	 * @return the checkedBy
 	 */
-	public Set<Team> getCheckedBy() {
+	public Set<Piece> getCheckedBy() {
 		return this.checkedBy;
 	}
 

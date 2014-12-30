@@ -1,6 +1,7 @@
 package model.piece.move;
 
 import model.piece.King;
+import model.piece.Piece;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -33,7 +34,7 @@ public class KingMove implements IMove {
 			return false;
 		} else if (destination.getRowNumber() - position.getRowNumber() > 1) {
 			return false;
-		} else if (underChecked(destination, team)) { // Or move to a checked square
+		} else if (underChecked(destination, team)) { // Or move to a square checked by
 			return false;
 		} else if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
 			return false;
@@ -47,10 +48,10 @@ public class KingMove implements IMove {
 	}
 
 	private boolean underChecked(Square destination, Team team) {
-		if (destination.getCheckedBy().size() > 1) {
-			return true;
-		} else if (!destination.getCheckedBy().contains(team)) {
-			return true;
+		for (Piece piece : destination.getCheckedBy()) {
+			if (!piece.getTeam().equals(team)) {
+				return true;
+			}
 		}
 		return false;
 	}

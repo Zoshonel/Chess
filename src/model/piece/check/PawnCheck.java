@@ -18,23 +18,23 @@ public class PawnCheck implements ICheck {
 		if (this.pawn.getTeam().getColor().equalsIgnoreCase("white")) {
 			if (row > 0 && row < 8) {
 				if (column == 1) {
-					table.getSquare(row + 1, column + 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row + 1, column + 1).getCheckedBy().add(this.pawn);
 				} else if (column == 8) {
-					table.getSquare(row + 1, column - 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row + 1, column - 1).getCheckedBy().add(this.pawn);
 				} else {
-					table.getSquare(row + 1, column + 1).getCheckedBy().add(this.pawn.getTeam());
-					table.getSquare(row + 1, column - 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row + 1, column + 1).getCheckedBy().add(this.pawn);
+					table.getSquare(row + 1, column - 1).getCheckedBy().add(this.pawn);
 				}
 			}
 		} else if (this.pawn.getTeam().getColor().equalsIgnoreCase("black")) {
 			if (row > 0 && row < 8) {
 				if (column == 1) {
-					table.getSquare(row - 1, column + 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row - 1, column + 1).getCheckedBy().add(this.pawn);
 				} else if (column == 8) {
-					table.getSquare(row - 1, column - 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row - 1, column - 1).getCheckedBy().add(this.pawn);
 				} else {
-					table.getSquare(row - 1, column + 1).getCheckedBy().add(this.pawn.getTeam());
-					table.getSquare(row - 1, column - 1).getCheckedBy().add(this.pawn.getTeam());
+					table.getSquare(row - 1, column + 1).getCheckedBy().add(this.pawn);
+					table.getSquare(row - 1, column - 1).getCheckedBy().add(this.pawn);
 				}
 			}
 		}
