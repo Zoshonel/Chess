@@ -42,7 +42,7 @@ public class Piece {
 		return this.iMove.move(destination, table);
 	}
 
-	public void check(Square position, Table table) {
-		this.iCheck.check(position, table);
+	public void check(Table table) {
+		this.iCheck.check(table);
 	}
 }

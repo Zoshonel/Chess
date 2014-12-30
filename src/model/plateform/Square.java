@@ -121,4 +121,13 @@ public class Square {
 		setOccupied(true);
 		this.piece[0] = piece;
 	}
+
+	public boolean underCheckedBy(Team team) {
+		for (Piece piece : this.checkedBy) {
+			if (piece.getTeam().equals(team)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

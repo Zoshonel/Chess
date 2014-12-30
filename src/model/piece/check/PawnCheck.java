@@ -1,7 +1,6 @@
 package model.piece.check;
 
 import model.piece.Pawn;
-import model.plateform.Square;
 import model.plateform.Table;
 
 public class PawnCheck implements ICheck {
@@ -12,9 +11,9 @@ public class PawnCheck implements ICheck {
 	}
 
 	@Override
-	public void check(Square position, Table table) {
-		int row = position.getRowNumber();
-		int column = position.getColumnNumber();
+	public void check(Table table) {
+		int row = this.pawn.getPosition().getRowNumber();
+		int column = this.pawn.getPosition().getColumnNumber();
 		if (this.pawn.getTeam().getColor().equalsIgnoreCase("white")) {
 			if (row > 0 && row < 8) {
 				if (column == 1) {

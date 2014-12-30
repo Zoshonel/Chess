@@ -1,5 +1,6 @@
 package model.piece;
 
+import model.piece.check.RookCheck;
 import model.piece.move.RookMove;
 import model.plateform.Square;
 import model.plateform.Team;
@@ -11,6 +12,7 @@ public class Rook extends Piece {
 		super(team, position);
 		this.firstMove = true;
 		this.iMove = new RookMove(this);
+		this.iCheck = new RookCheck(this);
 	}
 
 	/**

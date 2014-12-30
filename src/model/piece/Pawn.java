@@ -1,5 +1,6 @@
 package model.piece;
 
+import model.piece.check.PawnCheck;
 import model.piece.move.PawnMove;
 import model.plateform.Square;
 import model.plateform.Team;
@@ -11,6 +12,7 @@ public class Pawn extends Piece {
 		super(team, position);
 		this.firstMove = true;
 		this.iMove = new PawnMove(this);
+		this.iCheck = new PawnCheck(this);
 	}
 
 	/**
