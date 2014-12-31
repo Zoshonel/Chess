@@ -19,13 +19,17 @@ public class PawnMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.pawn.getTeam())) {
-			if (this.pawn.isFirstMove()) {
-				this.pawn.setFirstMove(false);
+			position.empty(); // Empty the current square
+			if (this.pawn.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
+				position.takenBy(this.pawn); // Cancel the move, re-take the initial square
+				return false;
 			}
-			position.empty();
 			this.pawn.removeCheck(table);
 			takeSquare(destination);
 			this.pawn.check(table);
+			if (this.pawn.isFirstMove()) {
+				this.pawn.setFirstMove(false);
+			}
 			return true;
 		} else {
 			return false;

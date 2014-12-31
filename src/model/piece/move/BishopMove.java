@@ -19,7 +19,11 @@ public class BishopMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.bishop.getTeam())) {
-			position.empty();
+			position.empty(); // Empty the current square
+			if (this.bishop.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
+				position.takenBy(this.bishop); // Cancel the move, re-take the initial square
+				return false;
+			}
 			this.bishop.removeCheck(table);
 			takeSquare(destination);
 			this.bishop.check(table);

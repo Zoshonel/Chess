@@ -19,7 +19,11 @@ public class KnightMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.knight.getTeam())) {
-			position.empty();
+			position.empty(); // Empty the current square
+			if (this.knight.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
+				position.takenBy(this.knight); // Cancel the move, re-take the initial square
+				return false;
+			}
 			this.knight.removeCheck(table);
 			takeSquare(destination);
 			this.knight.check(table);

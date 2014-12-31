@@ -20,6 +20,10 @@ public class QueenMove implements IMove {
 		}
 		if (validMove(position, destination, table, this.queen.getTeam())) {
 			position.empty();
+			if (this.queen.getTeam().getKing().isUnderCheck()) {
+				position.takenBy(this.queen);
+				return false;
+			}
 			this.queen.removeCheck(table);
 			takeSquare(destination);
 			this.queen.check(table);

@@ -19,13 +19,17 @@ public class RookMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.rook.getTeam())) {
-			if (this.rook.isFirstMove()) {
-				this.rook.setFirstMove(false);
+			position.empty(); // Empty the current square
+			if (this.rook.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
+				position.takenBy(this.rook); // Cancel the move, re-take the initial square
+				return false;
 			}
-			position.empty();
 			this.rook.removeCheck(table);
 			takeSquare(destination);
 			this.rook.check(table);
+			if (this.rook.isFirstMove()) {
+				this.rook.setFirstMove(false);
+			}
 			return true;
 		} else {
 			return false;
