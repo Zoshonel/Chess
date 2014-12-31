@@ -47,6 +47,8 @@ public class Piece {
 	}
 
 	public void removeCheck(Table table) {
-		this.iCheck.removeCheck(table);
+		if (this.position.getCheckedBy().contains(this)) {
+			this.position.getCheckedBy().remove(this);
+		}
 	}
 }

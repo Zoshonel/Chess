@@ -4,6 +4,4 @@ import model.plateform.Table;
 
 public interface ICheck {
 	public void check(Table table);
-
-	public void removeCheck(Table table);
 }
