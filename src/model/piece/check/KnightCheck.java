@@ -56,4 +56,10 @@ public class KnightCheck implements ICheck {
 			}
 		}
 	}
+
+	@Override
+	public void removeCheck(Table table) {
+		// TODO Auto-generated method stub
+
+	}
 }

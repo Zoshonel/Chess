@@ -20,6 +20,7 @@ public class KnightMove implements IMove {
 		}
 		if (validMove(position, destination, table, this.knight.getTeam())) {
 			position.empty();
+			this.knight.removeCheck(table);
 			takeSquare(destination);
 			this.knight.check(table);
 			return true;

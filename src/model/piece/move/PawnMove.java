@@ -23,6 +23,7 @@ public class PawnMove implements IMove {
 				this.pawn.setFirstMove(false);
 			}
 			position.empty();
+			this.pawn.removeCheck(table);
 			takeSquare(destination);
 			this.pawn.check(table);
 			return true;

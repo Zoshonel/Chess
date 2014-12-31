@@ -45,4 +45,8 @@ public class Piece {
 	public void check(Table table) {
 		this.iCheck.check(table);
 	}
+
+	public void removeCheck(Table table) {
+		this.iCheck.removeCheck(table);
+	}
 }

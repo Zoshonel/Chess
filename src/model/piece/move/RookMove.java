@@ -23,6 +23,7 @@ public class RookMove implements IMove {
 				this.rook.setFirstMove(false);
 			}
 			position.empty();
+			this.rook.removeCheck(table);
 			takeSquare(destination);
 			this.rook.check(table);
 			return true;

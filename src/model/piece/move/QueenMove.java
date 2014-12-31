@@ -20,6 +20,7 @@ public class QueenMove implements IMove {
 		}
 		if (validMove(position, destination, table, this.queen.getTeam())) {
 			position.empty();
+			this.queen.removeCheck(table);
 			takeSquare(destination);
 			this.queen.check(table);
 			return true;

@@ -21,6 +21,7 @@ public class KingMove implements IMove {
 		if (validMove(position, destination, table, this.king.getTeam())) {
 			this.king.setFirstMove(false);
 			position.empty();
+			this.king.removeCheck(table);
 			takeSquare(destination);
 			this.king.check(table);
 			return true;

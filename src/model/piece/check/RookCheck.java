@@ -76,4 +76,10 @@ public class RookCheck implements ICheck {
 			}
 		}
 	}
+
+	@Override
+	public void removeCheck(Table table) {
+		// TODO Auto-generated method stub
+
+	}
 }
