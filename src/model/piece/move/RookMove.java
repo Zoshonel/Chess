@@ -19,9 +19,12 @@ public class RookMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.rook.getTeam())) {
-			this.rook.setFirstMove(false);
+			if (this.rook.isFirstMove()) {
+				this.rook.setFirstMove(false);
+			}
 			position.empty();
 			takeSquare(destination);
+			this.rook.check(table);
 			return true;
 		} else {
 			return false;

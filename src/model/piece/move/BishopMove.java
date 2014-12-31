@@ -21,6 +21,7 @@ public class BishopMove implements IMove {
 		if (validMove(position, destination, table, this.bishop.getTeam())) {
 			position.empty();
 			takeSquare(destination);
+			this.bishop.check(table);
 			return true;
 		} else {
 			return false;

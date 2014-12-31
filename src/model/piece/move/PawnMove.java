@@ -19,9 +19,12 @@ public class PawnMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.pawn.getTeam())) {
-			this.pawn.setFirstMove(false);
+			if (this.pawn.isFirstMove()) {
+				this.pawn.setFirstMove(false);
+			}
 			position.empty();
 			takeSquare(destination);
+			this.pawn.check(table);
 			return true;
 		} else {
 			return false;

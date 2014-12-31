@@ -26,4 +26,15 @@ public class King extends Piece {
 	public void setFirstMove(boolean firstMove) {
 		this.firstMove = firstMove;
 	}
+
+	/**
+	 * @return the underCheck
+	 */
+	public boolean isUnderCheck() {
+		if (this.position.underCheckedBy(this.team.getOpponent())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

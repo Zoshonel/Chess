@@ -9,24 +9,13 @@ public class Team {
 	private final String color;
 	private final Table table;
 	private boolean myTurn;
+	private Team opponent;
 	private List<Piece> pieceList;
 
 	public Team(String color, Table table, Boolean myTurn) {
 		this.color = color;
 		this.table = table;
 		initialize();
-	}
-
-	private void initialize() {
-
-	}
-
-	public King getKing() {
-		return null;
-	}
-
-	public void play() {
-		this.myTurn = false;
 	}
 
 	/**
@@ -55,6 +44,20 @@ public class Team {
 	 */
 	public boolean isMyTurn() {
 		return this.myTurn;
+	}
+
+	/**
+	 * @return the opponent
+	 */
+	public Team getOpponent() {
+		return this.opponent;
+	}
+
+	/**
+	 * @param opponent the opponent to set
+	 */
+	public void setOpponent(Team opponent) {
+		this.opponent = opponent;
 	}
 
 	/* (non-Javadoc)
@@ -91,5 +94,17 @@ public class Team {
 			return false;
 		}
 		return true;
+	}
+
+	private void initialize() {
+
+	}
+
+	public King getKing() {
+		return null;
+	}
+
+	public void play() {
+		this.myTurn = false;
 	}
 }

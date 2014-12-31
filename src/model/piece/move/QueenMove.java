@@ -21,6 +21,7 @@ public class QueenMove implements IMove {
 		if (validMove(position, destination, table, this.queen.getTeam())) {
 			position.empty();
 			takeSquare(destination);
+			this.queen.check(table);
 			return true;
 		} else {
 			return false;

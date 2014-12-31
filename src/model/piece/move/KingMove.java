@@ -1,7 +1,6 @@
 package model.piece.move;
 
 import model.piece.King;
-import model.piece.Piece;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -23,6 +22,7 @@ public class KingMove implements IMove {
 			this.king.setFirstMove(false);
 			position.empty();
 			takeSquare(destination);
+			this.king.check(table);
 			return true;
 		} else {
 			return false;
@@ -34,7 +34,7 @@ public class KingMove implements IMove {
 			return false;
 		} else if (destination.getRowNumber() - position.getRowNumber() > 1) {
 			return false;
-		} else if (underChecked(destination, team)) { // Or move to a square checked by opponent team
+		} else if (destination.underCheckedBy(team.getOpponent())) { // Or move to a square checked by opponent team
 			return false;
 		} else if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
 			return false;
@@ -45,14 +45,5 @@ public class KingMove implements IMove {
 	private void takeSquare(Square destination) {
 		this.king.setPosition(destination); // Change the current position to the destination
 		destination.takenBy(this.king); // Alarm the square that it is taken by this piece
-	}
-
-	private boolean underChecked(Square destination, Team team) {
-		for (Piece piece : destination.getCheckedBy()) {
-			if (!piece.getTeam().equals(team)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
