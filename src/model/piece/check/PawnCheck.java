@@ -12,8 +12,8 @@ public class PawnCheck implements ICheck {
 
 	@Override
 	public void check(Table table) {
-		int row = this.pawn.getPosition().getRowNumber();
-		int column = this.pawn.getPosition().getColumnNumber();
+		int row = this.pawn.getPosition().getRowNumber(); // Current row-position of the pawn.
+		int column = this.pawn.getPosition().getColumnNumber(); // Current column-position of the pawn.
 		if (this.pawn.getTeam().getColor().equalsIgnoreCase("white")) {
 			if (row > 0 && row < 8) {
 				if (column == 1) {

@@ -1,5 +1,6 @@
 package model.piece;
 
+import model.piece.check.KingCheck;
 import model.piece.move.KingMove;
 import model.plateform.Square;
 import model.plateform.Team;
@@ -11,6 +12,7 @@ public class King extends Piece {
 		super(team, position);
 		this.firstMove = true;
 		this.iMove = new KingMove(this);
+		this.iCheck = new KingCheck(this);
 	}
 
 	/**
