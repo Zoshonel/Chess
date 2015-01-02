@@ -1,5 +1,6 @@
 package model.plateform;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import model.piece.Piece;
@@ -9,13 +10,14 @@ public class Square {
 	private final int columnNumber;
 	private final String color;
 	private boolean occupied;
-	private Set<Piece> checkedBy;
+	private final Set<Piece> checkedBy;
 	private final Piece[] piece;
 
 	public Square(int rowNumber, int columnNumber, String color) {
 		this.rowNumber = rowNumber;
 		this.columnNumber = columnNumber;
 		this.color = color;
+		this.checkedBy = new HashSet<Piece>();
 		this.piece = new Piece[1];
 	}
 

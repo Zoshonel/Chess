@@ -14,7 +14,7 @@ public class Table {
 					Square blackSquare = new Square(i, j, "black");
 					this.listSquare.add(blackSquare);
 				} else {
-					Square whiteSquare = new Square(i, i, "white");
+					Square whiteSquare = new Square(i, j, "white");
 					this.listSquare.add(whiteSquare);
 				}
 			}

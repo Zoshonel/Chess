@@ -15,6 +15,7 @@ public class Piece {
 	public Piece(Team team, Square position) {
 		this.team = team;
 		this.position = position;
+		position.takenBy(this);
 	}
 
 	/**
