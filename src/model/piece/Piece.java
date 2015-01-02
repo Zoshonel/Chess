@@ -47,8 +47,10 @@ public class Piece {
 	}
 
 	public void removeCheck(Table table) {
-		if (this.position.getCheckedBy().contains(this)) {
-			this.position.getCheckedBy().remove(this);
+		for (Square square : table.getListSquare()) {
+			if (square.getCheckedBy().contains(this)) {
+				square.getCheckedBy().remove(this);
+			}
 		}
 	}
 }
