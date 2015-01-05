@@ -8,17 +8,18 @@ import model.plateform.Table;
 import model.plateform.Team;
 
 public class Controller implements Runnable {
+	Team white;
+	Team black;
+	Table table;
+
 	@Override
 	public void run() {
-		Table table = new Table();
-		Team white = new Team("white", table, true);
-		Team black = new Team("black", table, true);
-		white.setOpponent(black);
-		black.setOpponent(white);
+		initialize(this.white, this.black, this.table);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
+		boolean gameEnded = false;
+		while (!gameEnded) { // Loop until the game ends
 			try {
-				while (true) {
+				while (true) { // Loop until white play a correct move
 					System.out.println("White pick piece row : ");
 					int a = Integer.parseInt(br.readLine());
 					System.out.println("White pick piece column : ");
@@ -27,27 +28,42 @@ public class Controller implements Runnable {
 					int c = Integer.parseInt(br.readLine());
 					System.out.println("White pick destination column : ");
 					int d = Integer.parseInt(br.readLine());
-					if (white.play(table.getSquare(a, b), table.getSquare(c, d))) {
+					if (this.white.play(this.table.getSquare(a, b), this.table.getSquare(c, d))) {
+						if (this.black.getKing().isCheckMated()) { // After a correct move by white, if black king got checkmated, the game will be finished
+							gameEnded = true;
+						}
 						break;
 					}
 				}
-
-				while (true) {
-					System.out.println("Black pick piece row : ");
-					int e = Integer.parseInt(br.readLine());
-					System.out.println("Black pick piece column : ");
-					int f = Integer.parseInt(br.readLine());
-					System.out.println("Black pick destination row : ");
-					int g = Integer.parseInt(br.readLine());
-					System.out.println("Black pick destination column : ");
-					int h = Integer.parseInt(br.readLine());
-					if (black.play(table.getSquare(e, f), table.getSquare(g, h))) {
-						break;
+				if (!gameEnded) { // Black could only play when the game is not finished yet
+					while (true) { // Loop until black play a correct move
+						System.out.println("Black pick piece row : ");
+						int e = Integer.parseInt(br.readLine());
+						System.out.println("Black pick piece column : ");
+						int f = Integer.parseInt(br.readLine());
+						System.out.println("Black pick destination row : ");
+						int g = Integer.parseInt(br.readLine());
+						System.out.println("Black pick destination column : ");
+						int h = Integer.parseInt(br.readLine());
+						if (this.black.play(this.table.getSquare(e, f), this.table.getSquare(g, h))) {
+							if (this.white.getKing().isCheckMated()) { // After a correct move by black, if white king got checkmate, the game will be finished
+								gameEnded = true;
+							}
+							break;
+						}
 					}
 				}
 			} catch (NumberFormatException | IOException e1) {
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	private void initialize(Team white, Team black, Table table) {
+		table = new Table();
+		white = new Team("white", table, true);
+		black = new Team("black", table, true);
+		white.setOpponent(black);
+		black.setOpponent(white);
 	}
 }
