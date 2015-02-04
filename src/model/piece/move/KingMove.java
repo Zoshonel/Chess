@@ -37,8 +37,10 @@ public class KingMove implements IMove {
 			return false;
 		} else if (destination.underCheckedBy(team.getOpponent())) { // Or move to a square checked by opponent team
 			return false;
-		} else if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
-			return false;
+		} else if (destination.isOccupied()) {
+			if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
+				return false;
+			}
 		}
 		return false;
 	}

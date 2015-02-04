@@ -40,9 +40,12 @@ public class RookMove implements IMove {
 		if ((destination.getColumnNumber() != position.getColumnNumber()) && (destination.getRowNumber() != position.getRowNumber())) { // Move to another row and column is forbidden for rook
 			return false;
 		} else if (pathBlocked(position, destination, table)) { // Verify if there have no occupied square in his path
+			System.out.println("Path is blocked");
 			return false;
-		} else if (destination.getPiece().getTeam().equals(team)) { // Rook can't capture piece with same color as itself
-			return false;
+		} else if (destination.isOccupied()) {
+			if (destination.getPiece().getTeam().equals(team)) { // Rook can't capture piece with same color as itself
+				return false;
+			}
 		}
 		return true;
 	}

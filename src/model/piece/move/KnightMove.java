@@ -39,8 +39,11 @@ public class KnightMove implements IMove {
 		int x = deltaColumn * deltaColumn + deltaRow * deltaRow;
 		if (x != 5) {
 			return false;
-		} else if (destination.getPiece().getTeam().equals(team)) { // Knight can't capture piece with same color as itself
-			return false;
+		}
+		if (destination.isOccupied()) {
+			if (destination.getPiece().getTeam().equals(team)) { // Knight can't capture piece with same color as itself
+				return false;
+			}
 		}
 		return true;
 	}
