@@ -39,8 +39,8 @@ public class PawnMove implements IMove {
 
 	private boolean validMove(Square position, Square destination, Table table, Team team) {
 		if (team.getColor() == "white") {
-			if (destination.getRowNumber() < position.getRowNumber()) { // Move backward is forbidden
-				System.out.println("Pawn can't move backward");
+			if (destination.getRowNumber() <= position.getRowNumber()) { // Move backward or horizontally is forbidden
+				System.out.println("Pawn can't move backward or horizontally");
 				return false;
 			}
 			if (this.pawn.isFirstMove()) { // Pawn's first move could go up to 2 squares
@@ -113,8 +113,8 @@ public class PawnMove implements IMove {
 				}
 			}
 		} else { // If the piece is black, we reverse the substract destination - initial position
-			if (destination.getRowNumber() > position.getRowNumber()) { // Move backward is forbidden
-				System.out.println("Pawn can't move backward");
+			if (destination.getRowNumber() >= position.getRowNumber()) { // Move backward or horizontally is forbidden
+				System.out.println("Pawn can't move backward or horizontally");
 				return false;
 			}
 			if (this.pawn.isFirstMove()) { // Pawn's first move could go up to 2 squares
