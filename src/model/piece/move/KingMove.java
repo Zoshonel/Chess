@@ -20,11 +20,18 @@ public class KingMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.king.getTeam())) {
-			this.king.setFirstMove(false);
 			position.empty();
 			this.king.removeCheck(table);
 			takeSquare(destination);
-			this.king.check(table);
+			if (this.king.isFirstMove()) {
+				this.king.setFirstMove(false);
+			}
+			if (destination.isOccupied()) { // If this move capture opponent piece
+				Piece takenPiece = destination.getPiece();
+				takenPiece.removeCheck(table); // Remove the check of this piece on the table.
+				Team opponent = takenPiece.getTeam();
+				opponent.getPieceList().remove(takenPiece); // And remove this piece on the opponent team;
+			}
 			return true;
 		} else {
 			return false;

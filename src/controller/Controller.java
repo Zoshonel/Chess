@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import model.piece.Piece;
+import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
 
@@ -44,6 +46,24 @@ public class Controller implements Runnable {
 						System.out.println("This square is empty");
 					}
 				}
+				//test
+				for (int i = 1; i < 9; i++) {
+					for (int j = 1; j < 9; j++) {
+						Square square = this.table.getSquare(i, j);
+						if (!square.getCheckedBy().isEmpty()) {
+							System.out.print("Square " + i + ";" + j + " is under check by :");
+							for (Piece piece : square.getCheckedBy()) {
+								String className = piece.getClass().toString();
+								String color = piece.getTeam().getColor();
+								int row = piece.getPosition().getRowNumber();
+								int column = piece.getPosition().getColumnNumber();
+								System.out.print(className + " " + color + "-" + row + ";" + column + "  ");
+							}
+							System.out.print("\n");
+						}
+					}
+				}
+
 				if (!gameEnded) { // Black could only play when the game is not finished yet
 					while (true) { // Loop until black play a correct move
 						System.out.println("Black pick piece row : ");
@@ -68,7 +88,23 @@ public class Controller implements Runnable {
 						} else {
 							System.out.println("This square is empty");
 						}
-						;
+					}
+					//test
+					for (int i = 1; i < 9; i++) {
+						for (int j = 1; j < 9; j++) {
+							Square square = this.table.getSquare(i, j);
+							if (!square.getCheckedBy().isEmpty()) {
+								System.out.print("Square " + i + ";" + j + " is under check by :");
+								for (Piece piece : square.getCheckedBy()) {
+									String className = piece.getClass().toString();
+									String color = piece.getTeam().getColor();
+									int row = piece.getPosition().getRowNumber();
+									int column = piece.getPosition().getColumnNumber();
+									System.out.print(className + " " + color + "-" + row + ";" + column + "  ");
+								}
+								System.out.print("\n");
+							}
+						}
 					}
 				}
 			} catch (NumberFormatException | IOException e1) {
