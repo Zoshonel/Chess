@@ -36,6 +36,13 @@ public class KnightMove implements IMove {
 				System.out.println("King is under check");
 				return false;
 			}
+
+			if (destination.isOccupied()) { // If this move capture opponent piece
+				Piece takenPiece = destination.getPiece();
+				takenPiece.removeCheck(table); // Remove the check of this piece on the table.
+				Team opponent = takenPiece.getTeam();
+				opponent.getPieceList().remove(takenPiece); // And remove this piece on the opponent team;
+			}
 			return true;
 		} else {
 			return false;

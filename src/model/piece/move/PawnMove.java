@@ -37,6 +37,13 @@ public class PawnMove implements IMove {
 			} else if (this.pawn.isFirstMove()) { // If everything is fine
 				this.pawn.setFirstMove(false);
 			}
+
+			if (destination.isOccupied()) { // If this move capture opponent piece
+				Piece takenPiece = destination.getPiece();
+				takenPiece.removeCheck(table); // Remove the check of this piece on the table.
+				Team opponent = takenPiece.getTeam();
+				opponent.getPieceList().remove(takenPiece); // And remove this piece on the opponent team;
+			}
 			return true;
 		} else {
 			return false;

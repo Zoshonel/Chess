@@ -1,6 +1,7 @@
 package model.piece.move;
 
 import model.piece.King;
+import model.piece.Piece;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -42,6 +43,13 @@ public class KingMove implements IMove {
 			if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
 				return false;
 			}
+		}
+
+		if (destination.isOccupied()) { // If this move capture opponent piece
+			Piece takenPiece = destination.getPiece();
+			takenPiece.removeCheck(table); // Remove the check of this piece on the table.
+			Team opponent = takenPiece.getTeam();
+			opponent.getPieceList().remove(takenPiece); // And remove this piece on the opponent team;
 		}
 		return true;
 	}
