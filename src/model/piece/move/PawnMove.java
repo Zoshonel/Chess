@@ -76,6 +76,10 @@ public class PawnMove implements IMove {
 					}
 				}
 				if ((destination.getRowNumber() - position.getRowNumber()) == 1) { // In case pawn moves 1 square : we investigate the possibility of column change (pawn changes column only when it capture opponent).
+					if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
+						System.out.println("Pawn have to move straight ahead");
+						return false;
+					}
 					if (destination.getColumnNumber() == position.getColumnNumber()) { // In case it moves 1 square ahead, not capture opponent :
 						if (destination.isOccupied()) { // We check if the column is occupied
 							System.out.println("Destination is occupied");
@@ -83,11 +87,7 @@ public class PawnMove implements IMove {
 						}
 						return true;
 					}
-					if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
-						System.out.println("Pawn have to move straight ahead");
-						return false;
-					}
-					if (!destination.isOccupied()) {
+					if (!destination.isOccupied()) { // In case it move to adjacent column, it must be a capture, then that square must be occupied by opponent
 						System.out.println("Pawn have to move straight ahead");
 						return false;
 					} else {
@@ -104,6 +104,10 @@ public class PawnMove implements IMove {
 					System.out.println("Pawn can only move 1 square");
 					return false;
 				}
+				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
+					System.out.println("Pawn have to move straight ahead");
+					return false;
+				}
 				if (destination.getColumnNumber() == position.getColumnNumber()) { // In case it moves 1 square ahead, not capture opponent :
 					if (destination.isOccupied()) { // We check if the column is occupied
 						System.out.println("Destination is occupied");
@@ -112,12 +116,8 @@ public class PawnMove implements IMove {
 						return true;
 					}
 				}
-				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
+				if (!destination.isOccupied()) { // In case it move to adjacent column, it must be a capture, then that square must be occupied by opponent
 					System.out.println("Pawn have to move straight ahead");
-					return false;
-				}
-				if (!destination.isOccupied()) {
-					System.out.println("Destination is occupied");
 					return false;
 				} else {
 					if (destination.getPiece().getTeam().equals(team)) {
@@ -153,18 +153,21 @@ public class PawnMove implements IMove {
 					}
 				}
 				if ((position.getRowNumber() - destination.getRowNumber()) == 1) { // In case pawn moves 1 square : we investigate the possibility of column change (pawn changes column only when it capture opponent).
-					if (destination.getColumnNumber() == position.getColumnNumber()) { // In case it moves 1 square ahead, not capture opponent :
-						if (destination.isOccupied()) { // We check if the column is occupied
-							System.out.println("Destination is occupied");
-							return false;
-						}
-					}
 					if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
 						System.out.println("Pawn have to move straight ahead");
 						return false;
 					}
-					if (!destination.isOccupied()) {
-						return true;
+					if (destination.getColumnNumber() == position.getColumnNumber()) { // In case it moves 1 square ahead, not capture opponent :
+						if (destination.isOccupied()) { // We check if the column is occupied
+							System.out.println("Destination is occupied");
+							return false;
+						} else {
+							return true;
+						}
+					}
+					if (!destination.isOccupied()) { // In case it move to adjacent column, it must be a capture, then that square must be occupied by opponent
+						System.out.println("Pawn have to move straight ahead");
+						return false;
 					} else {
 						if (destination.getPiece().getTeam().equals(team)) {
 							System.out.println("Pawn can't capture piece in same team");
@@ -179,6 +182,10 @@ public class PawnMove implements IMove {
 					System.out.println("Pawn can only move 1 square");
 					return false;
 				}
+				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
+					System.out.println("Pawn have to move straight ahead");
+					return false;
+				}
 				if (destination.getColumnNumber() == position.getColumnNumber()) { // In case it moves 1 square ahead, not capture opponent :
 					if (destination.isOccupied()) { // We check if the column is occupied
 						System.out.println("Destination is occupied");
@@ -186,10 +193,6 @@ public class PawnMove implements IMove {
 					} else {
 						return true;
 					}
-				}
-				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
-					System.out.println("Pawn have to move straight ahead");
-					return false;
 				}
 				if (!destination.isOccupied()) {
 					System.out.println("Pawn have to move straight ahead");
