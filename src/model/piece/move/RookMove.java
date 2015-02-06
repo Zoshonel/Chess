@@ -1,5 +1,6 @@
 package model.piece.move;
 
+import model.piece.Piece;
 import model.piece.Rook;
 import model.plateform.Square;
 import model.plateform.Table;
@@ -20,14 +21,21 @@ public class RookMove implements IMove {
 		}
 		if (validMove(position, destination, table, this.rook.getTeam())) {
 			position.empty(); // Empty the current square
-			if (this.rook.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
-				position.takenBy(this.rook); // Cancel the move, re-take the initial square
-				return false;
-			}
 			this.rook.removeCheck(table);
 			takeSquare(destination);
-			this.rook.check(table);
-			if (this.rook.isFirstMove()) {
+
+			// Below is to verify if this move will let the king under check by opponent
+			for (Piece piece : this.rook.getTeam().getOpponent().getPieceList()) {
+				piece.removeCheck(table); // Refresh the table
+				piece.check(table); // Replay the check for each of opponent piece
+			}
+
+			if (this.rook.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
+				destination.empty(); // Free the destination
+				takeSquare(position); // and come back to the initial position
+				System.out.println("King is under check");
+				return false;
+			} else if (this.rook.isFirstMove()) { // If everything is fine
 				this.rook.setFirstMove(false);
 			}
 			return true;

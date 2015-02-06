@@ -1,6 +1,7 @@
 package model.piece.move;
 
 import model.piece.Knight;
+import model.piece.Piece;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -20,13 +21,21 @@ public class KnightMove implements IMove {
 		}
 		if (validMove(position, destination, table, this.knight.getTeam())) {
 			position.empty(); // Empty the current square
+			this.knight.removeCheck(table);
+			takeSquare(destination); // Move to the destination
+
+			// Below is to verify if this move will let the king under check by opponent
+			for (Piece piece : this.knight.getTeam().getOpponent().getPieceList()) {
+				piece.removeCheck(table); // Refresh the table
+				piece.check(table); // Replay the check for each of opponent piece
+			}
+
 			if (this.knight.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
-				position.takenBy(this.knight); // Cancel the move, re-take the initial square
+				destination.empty(); // Free the destination
+				takeSquare(position); // and come back to the initial position
+				System.out.println("King is under check");
 				return false;
 			}
-			this.knight.removeCheck(table);
-			takeSquare(destination);
-			this.knight.check(table);
 			return true;
 		} else {
 			return false;

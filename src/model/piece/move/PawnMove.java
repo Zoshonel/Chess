@@ -1,6 +1,7 @@
 package model.piece.move;
 
 import model.piece.Pawn;
+import model.piece.Piece;
 import model.plateform.Square;
 import model.plateform.Table;
 import model.plateform.Team;
@@ -18,17 +19,22 @@ public class PawnMove implements IMove {
 		if (position.equals(destination)) {
 			return false;
 		}
-		if (validMove(position, destination, table, this.pawn.getTeam())) {
+		if (validMove(position, destination, table, this.pawn.getTeam())) { // If this move is valid
 			position.empty(); // Empty the current square
-			if (this.pawn.getTeam().getKing().isUnderCheck()) { // If the move let the king be checked
-				position.takenBy(this.pawn); // Cancel the move, re-take the initial square
+			this.pawn.removeCheck(table);
+			takeSquare(destination); // Move to the destination
+
+			// Below is to verify if this move will let the king under check by opponent
+			for (Piece piece : this.pawn.getTeam().getOpponent().getPieceList()) {
+				piece.removeCheck(table); // Refresh the table
+				piece.check(table); // Replay the check for each of opponent piece
+			}
+			if (this.pawn.getTeam().getKing().isUnderCheck()) { // In case the king is under check
+				destination.empty(); // Free the destination
+				takeSquare(position); // and come back to the initial position
 				System.out.println("King is under check");
 				return false;
-			}
-			this.pawn.removeCheck(table);
-			takeSquare(destination);
-			this.pawn.check(table);
-			if (this.pawn.isFirstMove()) {
+			} else if (this.pawn.isFirstMove()) { // If everything is fine
 				this.pawn.setFirstMove(false);
 			}
 			return true;
@@ -49,8 +55,8 @@ public class PawnMove implements IMove {
 					return false;
 				}
 				if ((destination.getRowNumber() - position.getRowNumber()) == 2) { // In case pawn move 2 squares :
-					if (destination.getColumnNumber() != position.getColumnNumber()) { // Pawn have to move straigh ahead
-						System.out.println("Pawn have to move straigh ahead");
+					if (destination.getColumnNumber() != position.getColumnNumber()) { // Pawn have to move straight ahead
+						System.out.println("Pawn have to move straight ahead");
 						return false;
 					}
 					if (destination.isOccupied()) { // And the destination must not be occupied
@@ -68,6 +74,7 @@ public class PawnMove implements IMove {
 							System.out.println("Destination is occupied");
 							return false;
 						}
+						return true;
 					}
 					if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
 						System.out.println("Pawn have to move straight ahead");
@@ -94,10 +101,12 @@ public class PawnMove implements IMove {
 					if (destination.isOccupied()) { // We check if the column is occupied
 						System.out.println("Destination is occupied");
 						return false;
+					} else {
+						return true;
 					}
 				}
 				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.
-					System.out.println("Pawn have to move straigh ahead");
+					System.out.println("Pawn have to move straight ahead");
 					return false;
 				}
 				if (!destination.isOccupied()) {
@@ -123,8 +132,8 @@ public class PawnMove implements IMove {
 					return false;
 				}
 				if ((position.getRowNumber() - destination.getRowNumber()) == 2) { // In case pawn move 2 squares :
-					if (destination.getColumnNumber() != position.getColumnNumber()) { // Pawn have to move straigh ahead
-						System.out.println("Pawn have to move straigh ahead");
+					if (destination.getColumnNumber() != position.getColumnNumber()) { // Pawn have to move straight ahead
+						System.out.println("Pawn have to move straight ahead");
 						return false;
 					}
 					if (destination.isOccupied()) { // And the destination must not be occupied
@@ -148,8 +157,7 @@ public class PawnMove implements IMove {
 						return false;
 					}
 					if (!destination.isOccupied()) {
-						System.out.println("Pawn have to move straight ahead");
-						return false;
+						return true;
 					} else {
 						if (destination.getPiece().getTeam().equals(team)) {
 							System.out.println("Pawn can't capture piece in same team");
@@ -168,6 +176,8 @@ public class PawnMove implements IMove {
 					if (destination.isOccupied()) { // We check if the column is occupied
 						System.out.println("Destination is occupied");
 						return false;
+					} else {
+						return true;
 					}
 				}
 				if (Math.abs(destination.getColumnNumber() - position.getColumnNumber()) > 1) { // His destination can't be further than 1 colum comparing to the initial position.

@@ -161,9 +161,11 @@ public class Team {
 				this.opponent.setMyTurn(true);
 				// Replay check for all the piece on the table since a piece change his position
 				for (Piece piece : this.opponent.pieceList) {
+					piece.removeCheck(this.table); // Refresh the table
 					piece.check(this.table);
 				}
 				for (Piece piece : this.pieceList) {
+					piece.removeCheck(this.table); // Refresh the table
 					piece.check(this.table);
 				}
 			} else {

@@ -36,13 +36,14 @@ public class KingMove implements IMove {
 		} else if (destination.getRowNumber() - position.getRowNumber() > 1) {
 			return false;
 		} else if (destination.underCheckedBy(team.getOpponent())) { // Or move to a square checked by opponent team
+			System.out.println("This square is under check by opponent");
 			return false;
 		} else if (destination.isOccupied()) {
 			if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
 				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	private void takeSquare(Square destination) {

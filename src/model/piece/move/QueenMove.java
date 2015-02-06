@@ -1,5 +1,6 @@
 package model.piece.move;
 
+import model.piece.Piece;
 import model.piece.Queen;
 import model.plateform.Square;
 import model.plateform.Table;
@@ -19,14 +20,22 @@ public class QueenMove implements IMove {
 			return false;
 		}
 		if (validMove(position, destination, table, this.queen.getTeam())) {
-			position.empty();
+			position.empty(); // Empty the curren square
+			this.queen.removeCheck(table);
+			takeSquare(destination); // Move to the destination
+
+			// Below is to verify if this move will let the king under check by opponent
+			for (Piece piece : this.queen.getTeam().getOpponent().getPieceList()) {
+				piece.removeCheck(table); // Refresh the table
+				piece.check(table); // Replay the check for each of opponent piece
+			}
+
 			if (this.queen.getTeam().getKing().isUnderCheck()) {
-				position.takenBy(this.queen);
+				destination.empty(); // Free the destination
+				takeSquare(position); // and come back to the initial position
+				System.out.println("King is under check");
 				return false;
 			}
-			this.queen.removeCheck(table);
-			takeSquare(destination);
-			this.queen.check(table);
 			return true;
 		} else {
 			return false;
