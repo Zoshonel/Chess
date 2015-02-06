@@ -59,6 +59,7 @@ public class RookMove implements IMove {
 			return false;
 		} else if (destination.isOccupied()) {
 			if (destination.getPiece().getTeam().equals(team)) { // Rook can't capture piece with same color as itself
+				System.out.println("Can't capture piece in same team");
 				return false;
 			}
 		}

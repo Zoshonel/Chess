@@ -58,6 +58,7 @@ public class KnightMove implements IMove {
 		}
 		if (destination.isOccupied()) {
 			if (destination.getPiece().getTeam().equals(team)) { // Knight can't capture piece with same color as itself
+				System.out.println("Can't capture piece in same team");
 				return false;
 			}
 		}

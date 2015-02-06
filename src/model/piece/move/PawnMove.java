@@ -92,7 +92,7 @@ public class PawnMove implements IMove {
 						return false;
 					} else {
 						if (destination.getPiece().getTeam().equals(team)) {
-							System.out.println("Pawn can't capture piece in same team");
+							System.out.println("Can't capture piece in same team");
 							return false;
 						} else {
 							return true;
@@ -121,7 +121,7 @@ public class PawnMove implements IMove {
 					return false;
 				} else {
 					if (destination.getPiece().getTeam().equals(team)) {
-						System.out.println("Pawn can't capture piece in same team");
+						System.out.println("Can't capture piece in same team");
 						return false;
 					} else {
 						return true;
@@ -170,7 +170,7 @@ public class PawnMove implements IMove {
 						return false;
 					} else {
 						if (destination.getPiece().getTeam().equals(team)) {
-							System.out.println("Pawn can't capture piece in same team");
+							System.out.println("Can't capture piece in same team");
 							return false;
 						} else {
 							return true;
@@ -199,7 +199,7 @@ public class PawnMove implements IMove {
 					return false;
 				} else {
 					if (destination.getPiece().getTeam().equals(team)) {
-						System.out.println("Pawn can't capture piece in same team");
+						System.out.println("Can't capture piece in same team");
 						return false;
 					} else {
 						return true;

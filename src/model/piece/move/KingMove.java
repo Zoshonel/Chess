@@ -41,6 +41,7 @@ public class KingMove implements IMove {
 			return false;
 		} else if (destination.isOccupied()) {
 			if (destination.getPiece().getTeam().equals(team)) { // Or capture his own piece
+				System.out.println("Can't capture piece in same team");
 				return false;
 			}
 		}
