@@ -34,7 +34,7 @@ public class KnightCheck implements ICheck {
 			deltaColumnLeft--;
 		}
 		while (column + deltaColumnRight > 8) {
-			deltaColumnRight++;
+			deltaColumnRight--;
 		}
 		for (int i = 1; i <= deltaRowDown; i++) {
 			availableRow.add(row - i);
